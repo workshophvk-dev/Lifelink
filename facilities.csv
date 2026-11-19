@@ -1,0 +1,73 @@
+facility_id,name,type,city,state_region,country,latitude,longitude
+1,Sample Blood Bank Pune,blood_bank,Pune,Maharashtra,India,18.5204,73.8567
+2,Sample Hospital Pune,hospital,Pune,Maharashtra,India,18.5304,73.86670000000001
+3,Sample Blood Bank Mumbai,blood_bank,Mumbai,Maharashtra,India,19.076,72.8777
+4,Sample Hospital Mumbai,hospital,Mumbai,Maharashtra,India,19.086000000000002,72.88770000000001
+5,Sample Blood Bank Nagpur,blood_bank,Nagpur,Maharashtra,India,21.1458,79.0882
+6,Sample Hospital Nagpur,hospital,Nagpur,Maharashtra,India,21.155800000000003,79.0982
+7,Sample Blood Bank Delhi,blood_bank,Delhi,Delhi,India,28.6139,77.209
+8,Sample Hospital Delhi,hospital,Delhi,Delhi,India,28.623900000000003,77.21900000000001
+9,Sample Blood Bank Chennai,blood_bank,Chennai,Tamil Nadu,India,13.0827,80.2707
+10,Sample Hospital Chennai,hospital,Chennai,Tamil Nadu,India,13.0927,80.28070000000001
+11,Sample Blood Bank Kolkata,blood_bank,Kolkata,West Bengal,India,22.5726,88.3639
+12,Sample Hospital Kolkata,hospital,Kolkata,West Bengal,India,22.582600000000003,88.3739
+13,Sample Blood Bank Bengaluru,blood_bank,Bengaluru,Karnataka,India,12.9716,77.5946
+14,Sample Hospital Bengaluru,hospital,Bengaluru,Karnataka,India,12.9816,77.6046
+15,Sample Blood Bank Hyderabad,blood_bank,Hyderabad,Telangana,India,17.385,78.4867
+16,Sample Hospital Hyderabad,hospital,Hyderabad,Telangana,India,17.395000000000003,78.4967
+17,Sample Blood Bank Jaipur,blood_bank,Jaipur,Rajasthan,India,26.9124,75.7873
+18,Sample Hospital Jaipur,hospital,Jaipur,Rajasthan,India,26.922400000000003,75.7973
+19,Sample Blood Bank London,blood_bank,London,England,UK,51.5072,-0.1276
+20,Sample Hospital London,hospital,London,England,UK,51.517199999999995,-0.1176
+21,Sample Blood Bank Manchester,blood_bank,Manchester,England,UK,53.4808,-2.2426
+22,Sample Hospital Manchester,hospital,Manchester,England,UK,53.4908,-2.2326
+23,Sample Blood Bank New York,blood_bank,New York,NY,USA,40.7128,-74.006
+24,Sample Hospital New York,hospital,New York,NY,USA,40.7228,-73.996
+25,Sample Blood Bank Los Angeles,blood_bank,Los Angeles,CA,USA,34.0522,-118.2437
+26,Sample Hospital Los Angeles,hospital,Los Angeles,CA,USA,34.0622,-118.2337
+27,Sample Blood Bank Chicago,blood_bank,Chicago,IL,USA,41.8781,-87.6298
+28,Sample Hospital Chicago,hospital,Chicago,IL,USA,41.8881,-87.6198
+29,Sample Blood Bank Toronto,blood_bank,Toronto,ON,Canada,43.6532,-79.3832
+30,Sample Hospital Toronto,hospital,Toronto,ON,Canada,43.663199999999996,-79.3732
+31,Sample Blood Bank Kuala Lumpur,blood_bank,Kuala Lumpur,KL,Malaysia,3.139,101.6869
+32,Sample Hospital Kuala Lumpur,hospital,Kuala Lumpur,KL,Malaysia,3.1489999999999996,101.6969
+33,Sample Blood Bank Singapore,blood_bank,Singapore,SG,Singapore,1.3521,103.8198
+34,Sample Hospital Singapore,hospital,Singapore,SG,Singapore,1.3621,103.8298
+35,Sample Blood Bank Tokyo,blood_bank,Tokyo,Tokyo,Japan,35.6762,139.6503
+36,Sample Hospital Tokyo,hospital,Tokyo,Tokyo,Japan,35.6862,139.66029999999998
+37,Sample Blood Bank Sydney,blood_bank,Sydney,NSW,Australia,-33.8688,151.2093
+38,Sample Hospital Sydney,hospital,Sydney,NSW,Australia,-33.8588,151.2193
+39,Sample Blood Bank Nairobi,blood_bank,Nairobi,Nairobi,Kenya,-1.2921,36.8219
+40,Sample Hospital Nairobi,hospital,Nairobi,Nairobi,Kenya,-1.2821,36.8319
+41,Sample Blood Bank Lagos,blood_bank,Lagos,Lagos,Nigeria,6.5244,3.3792
+42,Sample Hospital Lagos,hospital,Lagos,Lagos,Nigeria,6.5344,3.3891999999999998
+43,Sample Blood Bank Cairo,blood_bank,Cairo,Cairo,Egypt,30.0444,31.2357
+44,Sample Hospital Cairo,hospital,Cairo,Cairo,Egypt,30.0544,31.245700000000003
+45,Sample Blood Bank Johannesburg,blood_bank,Johannesburg,Gauteng,South Africa,-26.2041,28.0473
+46,Sample Hospital Johannesburg,hospital,Johannesburg,Gauteng,South Africa,-26.1941,28.0573
+47,Sample Blood Bank Sao Paulo,blood_bank,Sao Paulo,SP,Brazil,-23.5505,-46.6333
+48,Sample Hospital Sao Paulo,hospital,Sao Paulo,SP,Brazil,-23.540499999999998,-46.6233
+49,Sample Blood Bank Mexico City,blood_bank,Mexico City,CDMX,Mexico,19.4326,-99.1332
+50,Sample Hospital Mexico City,hospital,Mexico City,CDMX,Mexico,19.442600000000002,-99.1232
+51,Sample Blood Bank Berlin,blood_bank,Berlin,Berlin,Germany,52.52,13.405
+52,Sample Hospital Berlin,hospital,Berlin,Berlin,Germany,52.53,13.415
+53,Sample Blood Bank Paris,blood_bank,Paris,IDF,France,48.8566,2.3522
+54,Sample Hospital Paris,hospital,Paris,IDF,France,48.8666,2.3621999999999996
+55,Sample Blood Bank Dubai,blood_bank,Dubai,Dubai,UAE,25.2048,55.2708
+56,Sample Hospital Dubai,hospital,Dubai,Dubai,UAE,25.2148,55.2808
+57,Sample Blood Bank Dhaka,blood_bank,Dhaka,Dhaka,Bangladesh,23.8103,90.4125
+58,Sample Hospital Dhaka,hospital,Dhaka,Dhaka,Bangladesh,23.820300000000003,90.4225
+59,Sample Blood Bank Colombo,blood_bank,Colombo,Western,Sri Lanka,6.9271,79.8612
+60,Sample Hospital Colombo,hospital,Colombo,Western,Sri Lanka,6.9371,79.8712
+61,Sample Medical College Pune,medical_college,Pune,Maharashtra,India,18.510399999999997,73.8467
+62,Sample Medical College Mumbai,medical_college,Mumbai,Maharashtra,India,19.066,72.8677
+63,Sample Medical College Nagpur,medical_college,Nagpur,Maharashtra,India,21.1358,79.0782
+64,Sample Medical College Delhi,medical_college,Delhi,Delhi,India,28.6039,77.199
+65,Sample Medical College Chennai,medical_college,Chennai,Tamil Nadu,India,13.072700000000001,80.2607
+66,Sample Medical College Kolkata,medical_college,Kolkata,West Bengal,India,22.5626,88.3539
+67,Sample Medical College Bengaluru,medical_college,Bengaluru,Karnataka,India,12.9616,77.5846
+68,Sample Medical College Hyderabad,medical_college,Hyderabad,Telangana,India,17.375,78.4767
+69,Sample Medical College Jaipur,medical_college,Jaipur,Rajasthan,India,26.9024,75.7773
+70,Sample Medical College London,medical_college,London,England,UK,51.4972,-0.1376
+71,Sample Medical College Manchester,medical_college,Manchester,England,UK,53.470800000000004,-2.2525999999999997
+72,Sample Medical College New York,medical_college,New York,NY,USA,40.7028,-74.016
