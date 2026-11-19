@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LifeLink: AI-Driven Blood and Body Donation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f8fa;--surface:#fff;--ink:#14202b;--mute:#586674;--line:#dbe2e8;--red:#c8102e;--red-soft:#fde8eb;--teal:#0f766e;--teal-soft:#dcf3ef;--amber:#b45309;--amber-soft:#fef0d9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a23;--surface:#16242f;--ink:#eaf0f5;--mute:#9aabb9;--line:#2a3b49;--red:#ff5a73;--red-soft:#3a1a22;--teal:#4fd1c0;--teal-soft:#123a36;--amber:#f5b25a;--amber-soft:#3b2c14}}
+:root[data-theme="dark"]{--bg:#0f1a23;--surface:#16242f;--ink:#eaf0f5;--mute:#9aabb9;--line:#2a3b49;--red:#ff5a73;--red-soft:#3a1a22;--teal:#4fd1c0;--teal-soft:#123a36;--amber:#f5b25a;--amber-soft:#3b2c14}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "DM Sans","Noto Sans Devanagari",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans","Noto Sans Devanagari",system-ui,sans-serif;line-height:1.1;margin:0}
+h1{font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:800;letter-spacing:-.02em;max-width:16ch}
+h2{font-size:clamp(1.6rem,3.5vw,2.3rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0 0 .8em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.25rem;text-decoration:none}
+.logo b{color:var(--red)}
+nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;font-size:.92rem;overflow-x:auto}
+nav a{text-decoration:none;color:var(--mute);white-space:nowrap}
+nav a:hover{color:var(--ink)}
+section{padding:64px 0}
+.lead{color:var(--mute);max-width:60ch;font-size:1.05rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}nav ul{gap:12px}}
+label{display:block;font-size:.85rem;font-weight:700;margin:12px 0 4px}
+select,textarea,input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px}
+textarea{resize:vertical;min-height:70px}
+button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:10px 18px;cursor:pointer;background:var(--red);color:#fff}
+button.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line);font-weight:500;padding:6px 12px;font-size:.88rem}
+button:hover{filter:brightness(1.08)}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:120px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:2px 10px;border-radius:99px}
+.crit{background:var(--red-soft);color:var(--red)}.mod{background:var(--amber-soft);color:var(--amber)}.low{background:var(--teal-soft);color:var(--teal)}
+.hero{padding-top:48px}
+.hero .lead{margin:16px 0 28px}
+.donor{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.donor:first-child{border-top:0}
+.rank{width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.donor small{color:var(--mute);display:block}
+.score{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.4rem}
+.bar{height:6px;border-radius:3px;background:var(--line);margin-top:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--teal)}
+.chat{height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px}
+.msg{max-width:85%;padding:9px 13px;border-radius:12px;font-size:.95rem}
+.me{align-self:flex-end;background:var(--red);color:#fff}.bot{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+@media(max-width:560px){.badges{grid-template-columns:repeat(2,1fr)}}
+.badge{text-align:center;padding:14px 6px;border-radius:12px;border:1px dashed var(--line);color:var(--mute);font-size:.85rem}
+.badge.on{border:1px solid var(--teal);background:var(--teal-soft);color:var(--ink)}
+.badge span{font-size:1.8rem;display:block;filter:grayscale(1);opacity:.4}.badge.on span{filter:none;opacity:1}
+input[type=range]{width:100%;accent-color:var(--red)}
+.cert{border:2px solid var(--red);border-radius:10px;padding:16px;text-align:center;background:var(--surface)}
+.note{font-size:.85rem;color:var(--mute);border-left:3px solid var(--amber);padding-left:12px;margin-top:16px}
+svg{max-width:100%;height:auto;display:block}
+.alt-bg{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+ul.plain{padding-left:18px;margin:8px 0}
+footer{padding:36px 0;color:var(--mute);font-size:.88rem}
+input[type=password]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px}
+nav ul{flex:1;min-width:0}.navr{display:flex;gap:8px;align-items:center}
+.lang{width:auto;padding:5px 8px;font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:8px 0 0}
+.stats div{border-top:3px solid var(--red);padding-top:10px;color:var(--mute);font-size:.9rem}
+.stats b{display:block;font:800 2rem "Bricolage Grotesque",sans-serif;color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.steps b{color:var(--red);font-size:1.4rem;font-family:"Bricolage Grotesque",sans-serif}
+@media(max-width:820px){.stats,.steps{grid-template-columns:1fr 1fr}}
+table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid var(--line);padding:7px;text-align:center}th{background:var(--bg)}
+.scroll{overflow-x:auto;margin:16px 0 8px}
+details{border-bottom:1px solid var(--line);padding:12px 0}summary{cursor:pointer;font-weight:700}
+ol.plain{padding-left:20px;margin:12px 0}ol.plain li{margin:8px 0}
+#robot{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9}
+#rbtn{width:64px;height:64px;border-radius:50%;padding:0;display:grid;place-items:center;background:var(--surface);border:2px solid var(--red);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#rpanel{display:none;position:absolute;right:0;bottom:76px;width:min(340px,calc(100vw - 32px))}#rpanel.open{display:block}
+.eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@media(prefers-reduced-motion:reduce){.eye{animation:none}}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}
+.modal .card{width:min(400px,100%)}.tabs{display:flex;gap:6px;margin-bottom:6px}.tabs button{flex:1}.tabs button.on{background:var(--red);color:#fff;border-color:var(--red)}
+#err{color:var(--red);font-size:.88rem;min-height:1.3em;margin:8px 0 0}
+.stock{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:700px){.stock{grid-template-columns:1fr 1fr}}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.tile b{font:800 1.4rem "Bricolage Grotesque",sans-serif}.tile span{float:right;font-size:.9rem}.tile small{color:var(--mute)}
+.tile.lowt{border-color:var(--red);background:var(--red-soft)}
+.feed{min-height:200px;display:flex;flex-direction:column;gap:8px}.ev{padding:8px 10px;border-left:3px solid var(--teal);background:var(--bg);border-radius:0 8px 8px 0;font-size:.92rem}
+.ev small{color:var(--mute);margin-right:6px}
+label.ck{display:flex;gap:10px;align-items:center;font-weight:400;font-size:.95rem;margin:8px 0}label.ck input{accent-color:var(--teal);width:18px;height:18px}
+#scr{margin-top:12px;padding:10px 12px;border-radius:8px;font-weight:700}
+.tech li{margin:4px 0}
+.hl{outline:3px solid var(--red);outline-offset:8px;border-radius:12px}
+.ecg{width:min(600px,100%);height:50px;margin:-10px 0 14px}.ecg path{stroke-dasharray:1000;animation:ecg 3.2s ease-in-out infinite}
+@keyframes ecg{0%{stroke-dashoffset:1000}60%,100%{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}}
+#prog{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;width:0;background:var(--red);z-index:30}
+#tour{display:none;position:fixed;left:16px;right:96px;max-width:440px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--ink);color:var(--bg);border-radius:14px;padding:14px 16px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+#tour p{margin:0 0 10px;font-size:.95rem}#tour button{padding:6px 14px}
+.pr{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}@media(max-width:820px){.pr{grid-template-columns:1fr}}
+/* ===== Redesign layer ===== */
+body{background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px}
+nav{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px)}
+h1{font-size:clamp(2.5rem,7vw,5rem);max-width:13ch}h2{font-size:clamp(1.9rem,4.5vw,3rem)}
+.card{border-radius:20px;box-shadow:0 10px 30px -18px rgba(20,32,43,.4)}
+.hero{position:relative;overflow:hidden;padding-bottom:84px}.hero .wrap{position:relative;z-index:1}
+.hero::before{content:"";position:absolute;right:max(-40px,calc(50% - 600px));top:36px;width:300px;height:300px;border-radius:50% 0 50% 50%;transform:rotate(-45deg);background:linear-gradient(140deg,#ff5a73,#8f0b21);box-shadow:inset -22px -22px 60px rgba(0,0,0,.28)}
+.hero .lead{font-size:1.2rem}
+@media(max-width:700px){.hero::before{width:150px;height:150px;opacity:.25;top:12px}}
+#match .card:first-child{background:linear-gradient(160deg,#8f0b21,#c8102e);color:#fff;border:0}
+#match .card:first-child select,#match .card:first-child textarea{background:#fff;color:#14202b;border-color:transparent}
+#match .card:first-child #find{background:#fff;color:#8f0b21}#match .card:first-child .note{color:#ffd9de;border-color:#fff}
+#problem{margin-top:-40px;padding-top:104px;clip-path:polygon(0 40px,100% 0,100% 100%,0 100%)}
+.stats{gap:14px}.stats div{border:1px solid var(--line);border-radius:22px;padding:22px;background:var(--surface)}.stats b{font-size:3rem;line-height:1;margin-bottom:6px}
+.stats div:nth-child(1){background:var(--red);color:#fff;border-color:transparent}.stats div:nth-child(1) b{color:#fff}
+.stats div:nth-child(2){background:var(--teal-soft)}.stats div:nth-child(3){background:var(--amber-soft)}
+.stats div:nth-child(4){background:var(--ink);color:var(--bg)}.stats div:nth-child(4) b{color:var(--bg)}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.bento a{border-radius:22px;padding:22px;text-decoration:none;background:var(--surface);border:1px solid var(--line);color:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;min-height:150px}
+.bento p{margin:6px 0 0;font-size:.92rem;color:var(--mute)}
+.bento .b1{grid-column:1/3;grid-row:1/3;min-height:300px;background:linear-gradient(150deg,#c8102e,#6f0919);color:#fff;border:0}.bento .b1 p{color:#ffd9de;font-size:1.05rem}.bento .b1 h3{font-size:1.9rem}
+.bento .b4{grid-column:3/5;background:var(--ink);color:var(--bg)}.bento .b4 p{color:var(--bg);opacity:.8}
+.bento .b5{grid-column:1/5;flex-direction:row;justify-content:space-between;align-items:center;gap:20px;min-height:0;background:var(--teal-soft);border-color:transparent}.bento .b5 p{margin:0;max-width:34ch}
+@media(max-width:820px){.bento{grid-template-columns:1fr 1fr}.bento .b1{grid-column:1/3;grid-row:auto;min-height:200px}.bento .b4,.bento .b5{grid-column:1/3}.bento .b5{flex-direction:column;align-items:flex-start}}
+#sos{background:#0d1620;color:#eaf0f5;padding:100px 0;clip-path:polygon(0 30px,100% 0,100% calc(100% - 30px),0 100%);border:0}
+#sos .lead,#sos .feed .lead{color:#9aabb9}#sos .card{background:#14222e;border-color:#243645}#sos .ev{background:#0d1620}#sos .ev small{color:#7f93a4}
+#sos h2::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;background:#ff3b57;margin-right:12px;vertical-align:middle;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,59,87,.7)}100%{box-shadow:0 0 0 14px rgba(255,59,87,0)}}
+@media(prefers-reduced-motion:reduce){#sos h2::before{animation:none}}
+.steps{position:relative}.steps::before{content:"";position:absolute;top:28px;left:12%;right:12%;height:3px;background:repeating-linear-gradient(90deg,var(--red) 0 8px,transparent 8px 16px)}
+.steps .card{background:transparent;border:0;box-shadow:none;text-align:center;padding:0}
+.steps b{position:relative;display:grid;place-items:center;width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:var(--red);color:#fff;font-size:1.5rem}
+@media(max-width:820px){.steps::before{display:none}}
+#forecast .wrap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);column-gap:40px;align-items:start}
+#forecast h2{grid-column:1}#forecast .lead{grid-column:1;margin:14px 0 0!important}#forecast .card{grid-column:2;grid-row:1/span 2}
+@media(max-width:820px){#forecast .wrap{display:block}#forecast .lead{margin:12px 0 20px!important}}
+#privacy .card{border-left:6px solid var(--teal)}
+footer{background:var(--ink);color:var(--bg);padding:40px 0}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">Life<b>Link</b></a>
+<ul><li><a href="#match">Matching</a></li><li><a href="#assistant">Assistant</a></li><li><a href="#forecast">Forecast</a></li><li><a href="#recognition">Recognition</a></li><li><a href="#stock" data-i="n8">Live</a></li><li><a href="#tech" data-i="n9">Tech</a></li><li><a href="#how">How it works</a></li><li><a href="#faq">FAQ</a></li><li><a href="#privacy">Privacy</a></li></ul><div class="navr"><button class="alt" id="theme" aria-label="Toggle dark mode">◐</button><select class="lang" id="lang" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option></select><button class="alt" id="loginBtn" data-i="login">Login</button></div></div></nav>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+<h1>Find the right donor before the minutes run out.</h1>
+<p class="lead">LifeLink uses AI to rank compatible donors by blood group, distance, urgency and eligibility, forecast shortages, and keep donors engaged. Try the matcher below with sample data.</p>
+
+<svg class="ecg" viewBox="0 0 600 60" aria-hidden="true"><path pathLength="1000" d="M0 30H120L135 30L145 8L158 52L170 30H260L272 30L282 14L292 46L302 30H420L432 30L442 6L456 54L468 30H600" fill="none" stroke="var(--red)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<p style="margin:0 0 26px"><button id="tstart" data-i="tstart">Start guided demo</button></p>
+<div class="grid2" id="match">
+<div class="card">
+<h3>Describe the request</h3>
+<label for="need">What happened? (the AI triage reads this)</label>
+<textarea id="need" placeholder="e.g. Accident patient in ICU, heavy bleeding, needs blood now"></textarea>
+<div class="row">
+<div><label for="grp">Blood group needed</label>
+<select id="grp"><option>O-</option><option>O+</option><option>A-</option><option>A+</option><option>B-</option><option selected>B+</option><option>AB-</option><option>AB+</option></select></div>
+<div><label for="urg">Urgency (auto-detected)</label>
+<select id="urg"><option value="critical">Critical</option><option value="moderate" selected>Moderate</option><option value="low">Planned</option></select></div>
+</div>
+<p style="margin:14px 0 6px"><span id="triage" class="tag mod">Triage: waiting for text</span></p>
+<button id="find">Find best donors</button>
+<p class="note">Sample data only. AI assists ranking; a doctor confirms every match.</p>
+</div>
+<div class="card">
+<h3>Ranked donors</h3>
+<div id="results" aria-live="polite"><p class="lead" style="margin-top:8px">Pick a blood group and select <b>Find best donors</b>. Results appear here with a score breakdown.</p></div>
+<svg id="map" viewBox="0 0 320 200" role="img" aria-label="Map of donors around the hospital" style="margin-top:12px;background:var(--bg);border-radius:10px;border:1px solid var(--line)"></svg>
+</div>
+</div>
+</div></section>
+
+<section id="features"><div class="wrap"><h2 data-i="ft">Five features, one platform</h2>
+<div class="bento">
+<a class="b1" href="#match"><h3>Smart matching</h3><p>AI ranks donors by blood compatibility, distance, urgency and eligibility, so the best match comes first.</p></a>
+<a class="b2" href="#sos"><h3>Location-based search</h3><p>Finds the best donor within travel time, not just the nearest.</p></a>
+<a class="b3" href="#sos"><h3>Real-time updates</h3><p>See who accepted and when they arrive.</p></a>
+<a class="b4" href="#privacy"><h3>Secure and private</h3><p>Medical data is encrypted and shared only with certified healthcare providers.</p></a>
+<a class="b5" href="#recognition"><h3>Recognition program</h3><p>Badges and certificates keep donors coming back.</p></a></div></div></section>
+<section class="alt-bg" id="problem"><div class="wrap pr"><div><h2 data-i="pr">The problem we solve</h2>
+<p style="margin-top:14px">Every day, patients in India lose precious time finding compatible blood or organ donors. Existing platforms are static directories: they depend on manual search, ignore urgency, cannot predict shortages, and lose donors after one donation.</p>
+<p>LifeLink applies AI to connect donors and recipients, forecast demand and keep donors engaged, while medical data stays encrypted and is shared only with certified healthcare providers.</p>
+<h3 style="margin-top:18px">Objectives</h3><ul class="plain"><li>Cut donor-recipient matching time with an AI ranking model</li><li>Predict regional blood demand to prevent shortages</li><li>Improve donor retention with personalised engagement</li><li>Protect privacy with encryption and tamper-evident records</li></ul></div>
+<div class="scroll"><table><tr><th></th><th>Typical platform</th><th>LifeLink</th></tr>
+<tr><th>Finding a donor</th><td>Manual search</td><td>Ranked in seconds</td></tr>
+<tr><th>Urgency</th><td>Not considered</td><td>AI triage</td></tr>
+<tr><th>Shortages</th><td>Found too late</td><td>Forecast ahead</td></tr>
+<tr><th>Donor retention</th><td>One-time use</td><td>Drop-off prediction</td></tr>
+<tr><th>Languages</th><td>Mostly English</td><td>English, Hindi, Marathi</td></tr>
+<tr><th>Privacy</th><td>Basic</td><td>Encrypted, verified</td></tr></table></div></div></section>
+<section style="padding:8px 0 56px"><div class="wrap stats">
+<div><b>3</b><span data-i="s1">lives helped per donation (up to)</span></div>
+<div><b>18–65</b><span data-i="s2">eligible age in years</span></div>
+<div><b>45</b><span data-i="s3">minimum weight (kg)</span></div>
+<div><b>3–4</b><span data-i="s4">months between donations</span></div></div></section>
+<section class="alt-bg" id="assistant"><div class="wrap grid2">
+<div><h2>Ask the eligibility assistant</h2>
+<p class="lead" style="margin-top:12px">Answers common donor and body-pledge questions in plain language. In your full project, this box can call an LLM API instead of the rule set used here.</p>
+<div class="chips" id="chips"></div></div>
+<div class="card"><div class="chat" id="chat" aria-live="polite"><div class="msg bot">Hi, I'm the LifeLink assistant. Ask me about donating blood or pledging your body.</div></div>
+<div class="row" style="margin-top:10px;flex-wrap:nowrap"><input type="text" id="q" placeholder="Can I donate after a tattoo?" aria-label="Your question"><button id="ask" style="flex:0 0 auto">Ask</button></div></div>
+</div></section>
+
+<section id="forecast"><div class="wrap">
+<h2>Predict shortages before they happen</h2>
+<p class="lead" style="margin:12px 0 20px">A simple trend model reads past monthly demand (synthetic data here) and projects the next three months. Months above available stock are flagged.</p>
+<div class="card"><label for="city" style="margin-top:0">City</label>
+<select id="city" style="max-width:220px"><option value="0">Pune</option><option value="1">Mumbai</option><option value="2">Nagpur</option></select>
+<svg id="chart" viewBox="0 0 600 260" role="img" aria-label="Blood demand history and forecast" style="margin-top:12px"></svg>
+<p id="fnote" style="margin:8px 0 0"></p></div>
+</div></section>
+
+<section class="alt-bg" id="recognition"><div class="wrap grid2">
+<div><h2>Keep donors coming back</h2>
+<p class="lead" style="margin-top:12px">Badges reward progress. A retention model watches the time since each donor's last gift and sends a timely, personal reminder.</p>
+<label for="don">Donations so far: <b id="dv">3</b></label><input type="range" id="don" min="0" max="12" value="3">
+<label for="since">Days since last donation: <b id="sv">100</b></label><input type="range" id="since" min="0" max="365" value="100">
+<p id="nudge" class="note" style="border-color:var(--teal)"></p></div>
+<div><div class="badges" id="badges"></div><div class="cert" id="cert"></div></div>
+</div></section>
+
+<section id="stock"><div class="wrap"><h2 data-i="sk">Live blood stock monitor</h2>
+<p class="lead" style="margin:12px 0 18px" data-i="skl">Sample hospital stock. When a group falls below the safe level, LifeLink alerts matching donors.</p>
+<div class="stock" id="stock8"></div>
+<p style="margin-top:14px"><button id="sim" data-i="sim">Simulate a day</button> <b id="skn" aria-live="polite" style="margin-left:10px"></b></p></div></section>
+<section class="alt-bg" id="sos"><div class="wrap grid2"><div><h2 data-i="so">Emergency alert simulation</h2>
+<p class="lead" style="margin:12px 0 18px" data-i="sol">Uses the request from the matcher above. LifeLink alerts the top three donors and tracks each response in real time.</p>
+<button id="sosb" data-i="sosb">Send emergency alert</button></div>
+<div class="card"><div class="feed" id="feed" aria-live="polite"><p class="lead">No alerts sent yet.</p></div></div></div></section>
+<section id="screen"><div class="wrap grid2"><div><h2 data-i="sc">Check if you can donate today</h2><p class="lead" style="margin-top:12px" data-i="scl">Tick every statement that is true for you.</p></div>
+<div class="card" id="scq"></div></div></section>
+<section id="how"><div class="wrap"><h2 data-i="hw">How LifeLink works</h2>
+<p class="lead" style="margin-top:12px" data-i="hwl">From request to donation in four steps.</p>
+<div class="steps"><div class="card"><b>1</b><h3 data-i="st1">Request</h3></div><div class="card"><b>2</b><h3 data-i="st2">AI match</h3></div><div class="card"><b>3</b><h3 data-i="st3">Confirm</h3></div><div class="card"><b>4</b><h3 data-i="st4">Donate and track</h3></div></div></div></section>
+<section class="alt-bg"><div class="wrap"><h2 data-i="cp">Who can give to whom</h2><div class="scroll" id="compat"></div><p class="lead" data-i="cpl">Rows are the patient's blood group. ✓ marks a compatible donor group.</p></div></section>
+<section><div class="wrap"><h2 data-i="bd">Body donation: how to pledge</h2><ol class="plain"><li data-i="b1">Register your pledge</li><li data-i="b2">Tell your family</li><li data-i="b3">Your family informs the medical college at the time of death</li><li data-i="b4">The body is used for medical education</li></ol></div></section>
+<section class="alt-bg" id="card"><div class="wrap grid2"><div><h2 data-i="dc">Digital donor card</h2>
+<p class="lead" style="margin:12px 0">Generate a donor ID with a QR code that a camp or hospital can scan. Log in first to use your name.</p>
+<label for="dg">Blood group</label><select id="dg"></select><p style="margin-top:14px"><button id="mk">Generate card</button></p></div>
+<div class="card" id="idc" style="text-align:center"><p class="lead">Your card appears here.</p></div></div></section>
+<section id="ml"><div class="wrap"><h2 data-i="ml">AI lab: donor drop-off prediction</h2>
+<p class="lead" style="margin:12px 0 18px">A logistic regression model trains in your browser on synthetic donors, then predicts who is likely to stop donating so LifeLink can send a nudge.</p>
+<div class="grid2"><div class="card"><label for="m1">Donations so far: <b id="v1">3</b></label><input type="range" id="m1" min="0" max="12" value="3">
+<label for="m2">Days since last donation: <b id="v2">150</b></label><input type="range" id="m2" min="0" max="365" value="150">
+<label for="m3">Replies to reminders: <b id="v3">30</b>%</label><input type="range" id="m3" min="0" max="100" value="30">
+<p id="mlp" class="tag mod" style="display:block;margin-top:14px"></p></div>
+<div class="card"><h3>Model</h3><p id="mlr" style="margin-top:8px"></p><button class="alt" id="retrain">Retrain</button><p class="note">Synthetic data, so accuracy only shows the pipeline works. Real data is needed for real use.</p></div></div></div></section>
+<section class="alt-bg" id="seclab"><div class="wrap"><h2 data-i="sy">Security lab</h2>
+<p class="lead" style="margin:12px 0 18px">Two real browser techniques: AES-GCM encryption of medical notes, and a hash-chained donation ledger that detects tampering.</p>
+<div class="grid2"><div class="card"><h3>Encrypt a medical note</h3>
+<label for="pt">Note</label><input type="text" id="pt" value="B+, haemoglobin 13.1 g/dL"><label for="pp">Passphrase</label><input type="text" id="pp" value="demo-pass">
+<p style="margin-top:12px"><button id="encb">Encrypt</button> <button class="alt" id="decb">Decrypt</button></p><p id="ctx" style="word-break:break-all;font-size:.85rem;color:var(--mute)"></p></div>
+<div class="card"><h3>Donation ledger</h3><input type="text" id="bd" value="Donor A, B+, 450 ml">
+<p style="margin:10px 0"><button id="addb">Add record</button> <button class="alt" id="vfy">Verify</button> <button class="alt" id="tmp">Tamper with #1</button></p>
+<p id="vr" style="font-weight:700;margin:0 0 8px"></p><div class="feed" id="chain" style="min-height:0"><p class="lead">No records yet.</p></div></div></div></div></section>
+<section id="tech"><div class="wrap"><h2 data-i="tc">System architecture and tech stack</h2>
+<div class="card" style="margin:20px 0"><svg viewBox="0 0 620 200" role="img" aria-label="LifeLink architecture: users, web app, AI engine, encrypted database, provider verification" style="font-size:12px;text-anchor:middle">
+<g fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"><rect x="10" y="20" width="120" height="64" rx="10"/><rect x="170" y="20" width="120" height="64" rx="10"/><rect x="330" y="20" width="120" height="64" rx="10" stroke="var(--red)" stroke-width="2.5"/><rect x="490" y="20" width="120" height="64" rx="10"/><rect x="330" y="130" width="280" height="44" rx="10" stroke="var(--teal)" stroke-width="2.5"/></g>
+<g stroke="var(--mute)" stroke-width="1.5"><line x1="130" y1="52" x2="170" y2="52"/><line x1="290" y1="52" x2="330" y2="52"/><line x1="450" y1="52" x2="490" y2="52"/><line x1="550" y1="84" x2="550" y2="130"/><line x1="390" y1="84" x2="390" y2="130"/></g>
+<g fill="var(--ink)"><text x="70" y="48" font-weight="700">Users</text><text x="70" y="65">Donor, recipient,</text><text x="70" y="78">hospital</text>
+<text x="230" y="48" font-weight="700">Web app</text><text x="230" y="65">HTML, CSS, JS</text><text x="230" y="78">3 languages</text>
+<text x="390" y="40" font-weight="700">AI engine</text><text x="390" y="56">Matching, triage</text><text x="390" y="69">Forecast, LifeBot</text>
+<text x="550" y="48" font-weight="700">Database</text><text x="550" y="65">Encrypted</text><text x="550" y="78">medical data</text>
+<text x="470" y="156" font-weight="700">Certified healthcare provider verifies every match</text></g></svg></div>
+<div class="grid2"><div class="card tech"><h3>Tech stack</h3><ul class="plain"><li>Frontend: HTML, CSS, JavaScript</li><li>Planned backend: Node.js or Python Flask</li><li>AI: scikit-learn for forecasting, LLM API for chatbot</li><li>Database: PostgreSQL with encryption</li><li>Maps: Leaflet with OpenStreetMap (planned)</li><li>In this demo: Web Crypto (AES-GCM, SHA-256), Web Speech API, QR codes, in-browser machine learning</li></ul></div>
+<div class="card tech"><h3>Impact and future scope</h3><ul class="plain"><li>Supports UN SDG 3: Good Health and Well-being</li><li>Train the model on real hospital data</li><li>SMS and WhatsApp alerts</li><li>Link with India's e-RaktKosh blood bank network</li><li>Mobile app with voice support</li></ul></div></div></div></section>
+<section class="alt-bg" id="faq"><div class="wrap"><h2 data-i="fq">Frequently asked questions</h2>
+<details><summary data-i="q1">Is donating blood safe?</summary><p data-i="a1">Yes. New sterile equipment is used for every donor, and about 350 to 450 ml is taken.</p></details>
+<details><summary data-i="q2">Who can see my medical data?</summary><p data-i="a2">Only certified healthcare providers involved in your donation.</p></details>
+<details><summary data-i="q3">Does AI decide who gets blood?</summary><p data-i="a3">No. AI ranks and suggests. Doctors make the final decision.</p></details></div></section>
+<section id="privacy"><div class="wrap grid2">
+<div><h2>Private by design</h2>
+<p class="lead" style="margin-top:12px">Medical details are encrypted and shared only with certified healthcare providers.</p></div>
+<div class="card"><h3>How AI is used safely</h3><ul class="plain">
+<li>Anomaly checks flag suspicious logins and repeated fake requests.</li>
+<li>Uploaded medical documents are checked before a request goes live.</li>
+<li>AI ranks and suggests. Healthcare professionals make the final call.</li>
+<li>This demo uses synthetic data only.</li></ul></div>
+</div></section>
+</main>
+<footer><div class="wrap">LifeLink, a college group project. Team: [add your names] · Mentor: [add mentor name]. Demo data is fictional and not medical advice.</div></footer>
+
+<div id="prog"></div><div id="tour" role="dialog" aria-label="Guided demo"><p id="tt"></p><button class="alt" id="tb">Back</button> <button id="tn">Next</button> <button class="alt" id="tx">Exit</button></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Login"><div class="card">
+<div class="tabs"><button class="alt on" id="tl" data-i="login">Login</button><button class="alt" id="tg" data-i="reg">Register</button></div>
+<div id="nameRow"><label for="un" data-i="nm">Name</label><input type="text" id="un" autocomplete="name">
+<label for="ur" data-i="rl2">I am a</label><select id="ur"><option>Donor</option><option>Recipient</option><option>Hospital</option></select></div>
+<label for="ue" data-i="em">Email</label><input type="text" id="ue" autocomplete="email">
+<label for="up" data-i="pw">Password</label><input type="password" id="up" autocomplete="current-password">
+<p id="err" role="alert"></p><div class="row" style="flex-wrap:nowrap"><button id="go" data-i="login">Login</button><button class="alt" id="cx">✕</button></div>
+<p class="note" data-i="dn">Demo only: no real account is created.</p></div></div>
+<div id="robot"><div class="card" id="rpanel" role="dialog" aria-label="LifeBot"><h3>LifeBot</h3><label class="ck" style="margin:6px 0 0"><input type="checkbox" id="spk"> 🔊 Read answers aloud</label><div class="chat" id="rchat" style="height:240px;margin:8px 0"></div>
+<div class="row" style="flex-wrap:nowrap"><input type="text" id="rq" aria-label="Message"><button class="alt" id="mic" aria-label="Voice input" style="flex:0 0 auto">🎤</button><button id="rask" style="flex:0 0 auto" data-i="ask">Ask</button></div></div>
+<button id="rbtn" aria-label="LifeBot"><svg viewBox="0 0 48 48" width="46" height="46" aria-hidden="true"><line x1="24" y1="5" x2="24" y2="11" stroke="var(--red)" stroke-width="2"/><circle cx="24" cy="4" r="3" fill="var(--red)"/><rect x="8" y="11" width="32" height="26" rx="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/><ellipse class="eye" cx="17" cy="23" rx="3.2" ry="4" fill="var(--teal)"/><ellipse class="eye" cx="31" cy="23" rx="3.2" ry="4" fill="var(--teal)"/><path d="M17 31q7 5 14 0" stroke="var(--red)" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="3" y="20" width="4" height="9" rx="2" fill="var(--ink)"/><rect x="41" y="20" width="4" height="9" rx="2" fill="var(--ink)"/></svg></button></div>
+<script>
+const $=id=>document.getElementById(id);
+// ---- Backend API (falls back to the built-in demo logic if the server is offline) ----
+const API=location.protocol==="file:"||location.port==="5500"?"http://localhost:3000":"";
+let TOKEN=null;try{TOKEN=sessionStorage.getItem("ll_token")}catch(e){}
+async function api(path,opt={}){const r=await fetch(API+"/api"+path,{...opt,headers:{"Content-Type":"application/json",...(TOKEN?{Authorization:"Bearer "+TOKEN}:{}),...(opt.headers||{})},body:opt.body?JSON.stringify(opt.body):undefined});
+ const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.error||"Request failed"),{status:r.status});return j}
+// ---- Matching ----
+const COMPAT={"O-":["O-"],"O+":["O-","O+"],"A-":["O-","A-"],"A+":["O-","O+","A-","A+"],"B-":["O-","B-"],"B+":["O-","O+","B-","B+"],"AB-":["O-","A-","B-","AB-"],"AB+":["O-","O+","A-","A+","B-","B+","AB-","AB+"]};
+const DONORS=[["Aarav S.","O+",20,30,140],["Meera K.","B+",70,40,95],["Rohan P.","B-",35,80,200],["Sana M.","O-",90,90,130],["Vikram D.","B+",55,55,30],["Isha R.","A+",15,60,250],["Kabir T.","B+",85,20,180],["Neha J.","O+",45,20,100],["Arjun L.","AB+",60,75,160],["Pooja V.","B-",25,45,110]].map(d=>({name:d[0],g:d[1],x:d[2],y:d[3],last:d[4]}));
+const HOSP={x:50,y:50};
+function triage(t){t=t.toLowerCase();
+ if(/accident|bleed|hemorrh|emergency|icu|now|critical|trauma|immediate|urgent/.test(t))return"critical";
+ if(/surgery|operation|delivery|transfusion|thalass|anemi|cancer/.test(t))return"moderate";
+ return t.trim()?"low":null}
+const tagCls={critical:"crit",moderate:"mod",low:"low"},tagTxt={critical:"Critical",moderate:"Moderate",low:"Planned"};
+$("need").addEventListener("input",()=>{const u=triage($("need").value),t=$("triage");
+ if(!u){t.className="tag mod";t.textContent="Triage: waiting for text";return}
+ $("urg").value=u;t.className="tag "+tagCls[u];t.textContent="Triage: "+tagTxt[u]+" (from your text)"});
+function rank(g,urg){
+ const wD={critical:.5,moderate:.35,low:.25}[urg],wE=.25,wC=1-wD-wE;
+ return DONORS.filter(d=>COMPAT[g].includes(d.g)&&d.last>=90).map(d=>{
+  const km=Math.hypot(d.x-HOSP.x,d.y-HOSP.y)*0.4;
+  const s=Math.max(0,1-km/40),e=Math.min(1,(d.last-90)/180+.4),c=d.g===g?1:.7;
+  return{...d,km,s,e,c,score:Math.round(100*(wD*s+wE*e+wC*c))}}).sort((a,b)=>b.score-a.score)}
+$("find").onclick=async()=>{
+ const g=$("grp").value;let u=$("urg").value,top;
+ try{const j=await api("/match",{method:"POST",body:{group:g,urgency:u}});top=j.donors}catch(e){top=rank(g,u).slice(0,4)}
+ $("results").innerHTML=top.length?top.map((d,i)=>`<div class="donor"><div class="rank">${i+1}</div><div><b>${d.name}</b> <span class="tag low">${d.g}</span><small>${d.km.toFixed(1)} km away, last donated ${d.last} days ago</small><div class="bar" title="Distance ${Math.round(d.s*100)}%"><i style="width:${d.score}%"></i></div></div><div class="score">${d.score}</div></div>`).join("")+`<p class="note">Score blends compatibility, distance and eligibility. For <b>${tagTxt[u]}</b> requests, distance counts more.</p>`:`<p>No eligible compatible donors in the sample data. The platform would widen the search radius and alert nearby blood banks.</p>`;
+ drawMap(top)};
+function drawMap(top){const m=$("map");let h=`<circle cx="160" cy="100" r="60" fill="none" stroke="var(--line)" stroke-dasharray="4"/><circle cx="160" cy="100" r="30" fill="none" stroke="var(--line)" stroke-dasharray="4"/>`;
+ const px=d=>[d.x*3.2,d.y*2];
+ DONORS.forEach(d=>{const [x,y]=px(d);h+=`<circle cx="${x}" cy="${y}" r="4" fill="var(--mute)" opacity=".5"/>`});
+ top.forEach((d,i)=>{const [x,y]=px(d);h+=`<line x1="160" y1="100" x2="${x}" y2="${y}" stroke="var(--red)" stroke-width="1" opacity=".5"/><circle cx="${x}" cy="${y}" r="9" fill="var(--red)"/><text x="${x}" y="${y+4}" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">${i+1}</text>`});
+ h+=`<rect x="152" y="92" width="16" height="16" rx="3" fill="var(--teal)"/><text x="160" y="104" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">+</text><text x="160" y="124" font-size="10" fill="var(--mute)" text-anchor="middle">Hospital</text>`;
+ m.innerHTML=h}
+drawMap([]);
+// ---- Assistant ----
+const KB=[
+ [/tattoo|piercing/,"Most guidelines ask you to wait about 6 to 12 months after a tattoo or piercing. Please confirm the exact period with the blood bank."],
+ [/age|old|young/,"In India, donors are usually aged 18 to 65 and weigh at least 45 kg."],
+ [/weight|kg/,"You generally need to weigh at least 45 kg and have haemoglobin of 12.5 g/dL or more."],
+ [/often|gap|again|interval|how many times/,"Men can usually donate whole blood every 3 months and women every 4 months."],
+ [/fever|cold|flu|sick|ill/,"Wait until you are fully recovered and off antibiotics before donating."],
+ [/pregnan|breastfeed|period/,"Pregnant and recently delivered women should not donate. Ask a doctor about breastfeeding and menstruation."],
+ [/diabet|sugar|bp|pressure|heart/,"Well-controlled conditions may be acceptable, but a doctor at the centre makes the decision on the day."],
+ [/body|pledge|organ/,"Body donation is pledged by registering and informing your family. The medical college needs family consent at the time of death, usually within a few hours. We can guide you through the form."],
+ [/eat|food|prepare|before/,"Eat a light meal, drink plenty of water, and sleep well before donating."],
+ [/hello|hi|hey/,"Hello! Ask me about donor eligibility, tattoos, how often you can give, or body donation."]];
+["Can I donate after a tattoo?","How often can I donate?","How do I pledge my body?","What should I eat before donating?"].forEach(q=>{const b=document.createElement("button");b.className="alt";b.textContent=q;b.onclick=()=>say(q);$("chips").appendChild(b)});
+function add(c,t){const d=document.createElement("div");d.className="msg "+c;d.textContent=t;$("chat").appendChild(d);$("chat").scrollTop=1e9}
+async function say(q){if(!q.trim())return;add("me",q);$("q").value="";
+ try{add("bot",(await api("/assistant",{method:"POST",body:{question:q}})).answer)}catch(e){const k=KB.find(x=>x[0].test(q.toLowerCase()));
+ add("bot",k?k[1]:"I'm not sure about that one. Please ask the blood bank or a doctor. I can help with age, tattoos, donation gaps, illness and body pledges.")}}
+$("ask").onclick=()=>say($("q").value);$("q").onkeydown=e=>{if(e.key==="Enter")say($("q").value)};
+// ---- Forecast ----
+const DEMAND=[[310,300,320,340,360,350,330,345,370,390,400,410],[620,610,640,660,700,690,680,720,750,770,790,820],[150,160,155,170,165,175,170,180,175,185,190,195]];
+const STOCK=[420,780,210];
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"];
+function draw(){const i=+$("city").value,y=DEMAND[i],n=6,xs=y.slice(-n).map((_,k)=>k),ys=y.slice(-n);
+ const mx=(n-1)/2,my=ys.reduce((a,b)=>a+b)/n,sl=xs.reduce((a,x,k)=>a+(x-mx)*(ys[k]-my),0)/xs.reduce((a,x)=>a+(x-mx)**2,0);
+ const f=[1,2,3].map(k=>Math.round(my+sl*(n-1+k-mx)));
+ const all=y.concat(f),max=Math.max(...all,STOCK[i])*1.1,X=k=>40+k*37,Y=v=>230-v/max*200;
+ let h=`<line x1="40" x2="590" y1="${Y(STOCK[i])}" y2="${Y(STOCK[i])}" stroke="var(--amber)" stroke-dasharray="5"/><text x="592" y="${Y(STOCK[i])-4}" font-size="10" fill="var(--amber)" text-anchor="end">Available stock ${STOCK[i]}</text>`;
+ h+=`<polyline fill="none" stroke="var(--teal)" stroke-width="2.5" points="${y.map((v,k)=>X(k)+","+Y(v)).join(" ")}"/>`;
+ h+=`<polyline fill="none" stroke="var(--red)" stroke-width="2.5" stroke-dasharray="6 4" points="${[y[11]].concat(f).map((v,k)=>X(11+k)+","+Y(v)).join(" ")}"/>`;
+ f.forEach((v,k)=>h+=`<circle cx="${X(12+k)}" cy="${Y(v)}" r="4" fill="${v>STOCK[i]?"var(--red)":"var(--surface)"}" stroke="var(--red)" stroke-width="2"/>`);
+ MON.forEach((m,k)=>h+=`<text x="${X(k)}" y="250" font-size="10" fill="var(--mute)" text-anchor="middle">${m}</text>`);
+ $("chart").innerHTML=h;
+ const bad=f.findIndex(v=>v>STOCK[i]);
+ $("fnote").innerHTML=bad<0?`<span class="tag low">Stable</span> Forecast units for the next 3 months: ${f.join(", ")}.`:`<span class="tag crit">Shortage risk</span> Predicted demand of ${f[bad]} units in ${MON[12+bad]} exceeds stock of ${STOCK[i]}. Alert donors in this city early.`}
+$("city").onchange=draw;draw();
+// ---- Recognition ----
+const B=[["🩸","First Drop",1],["💪","Lifesaver",3],["🏅","Hero",5],["🛡️","Guardian",10]];
+function rec(){const n=+$("don").value,s=+$("since").value;$("dv").textContent=n;$("sv").textContent=s;
+ $("badges").innerHTML=B.map(b=>`<div class="badge ${n>=b[2]?"on":""}"><span>${b[0]}</span><b>${b[1]}</b><br>${b[2]} donation${b[2]>1?"s":""}</div>`).join("");
+ const top=[...B].reverse().find(b=>n>=b[2]);
+ $("cert").innerHTML=top?`<small>Certificate of appreciation</small><h3 style="margin:6px 0">${top[1]} Donor</h3><small>${n} donation${n>1?"s":""} = up to ${n*3} lives supported</small>`:`<small>Make your first donation to earn a certificate.</small>`;
+ const nx=B.find(b=>n<b[2]);
+ let m;if(s<90)m=`Eligible again in ${90-s} days. We will remind you then.`;
+ else if(s<=180)m=`You are eligible now. A nearby request matches your group, so we would nudge you today.`;
+ else m=`It has been ${s} days. This donor is at risk of dropping off, so we send a warm, personal check-in.`;
+ $("nudge").textContent=m+(nx?` ${nx[2]-n} more to unlock ${nx[1]}.`:" All badges unlocked.")}
+$("don").oninput=rec;$("since").oninput=rec;rec();
+// ---- Compatibility table ----
+const gs=Object.keys(COMPAT);$("compat").innerHTML='<table><tr><th>↓ / →</th>'+gs.map(g=>'<th>'+g+'</th>').join('')+'</tr>'+gs.map(r=>'<tr><th>'+r+'</th>'+gs.map(d=>'<td>'+(COMPAT[r].includes(d)?'<b style="color:var(--teal)">✓</b>':'')+'</td>').join('')+'</tr>').join('')+'</table>';
+// ---- Languages (hi, mr) ----
+const T={
+h1:["सही रक्तदाता खोजें, इससे पहले कि समय निकल जाए।","वेळ संपण्यापूर्वी योग्य रक्तदाता शोधा."],
+hl:["LifeLink रक्त समूह, दूरी, तात्कालिकता और पात्रता के आधार पर दाताओं को AI से रैंक करता है, कमी का अनुमान लगाता है और दाताओं को जोड़े रखता है। नीचे नमूना डेटा के साथ आज़माएँ।","LifeLink रक्तगट, अंतर, तातडी आणि पात्रता यानुसार दात्यांना AI द्वारे क्रमवारी लावते, तुटवड्याचा अंदाज देते आणि दात्यांना जोडून ठेवते. खाली नमुना डेटासह वापरून पहा."],
+m3:["अनुरोध का विवरण दें","विनंतीचे वर्णन करा"],
+need:["क्या हुआ? (AI ट्राइएज इसे पढ़ता है)","काय झाले? (AI ट्रायाज हे वाचतो)"],
+grp:["आवश्यक रक्त समूह","आवश्यक रक्तगट"],
+urg:["तात्कालिकता (अपने आप पता चलती है)","तातडी (आपोआप ओळखली जाते)"],
+find:["सबसे अच्छे दाता खोजें","सर्वोत्तम दाते शोधा"],
+r3:["रैंक किए गए दाता","क्रमवारीतील दाते"],
+a2:["पात्रता सहायक से पूछें","पात्रता सहाय्यकाला विचारा"],
+al:["रक्तदान और देहदान के सामान्य सवालों के सरल भाषा में जवाब।","रक्तदान आणि देहदानाच्या सामान्य प्रश्नांची सोप्या भाषेत उत्तरे."],
+ask:["पूछें","विचारा"],
+f2:["कमी होने से पहले अनुमान लगाएँ","तुटवडा होण्यापूर्वी अंदाज लावा"],
+fl:["सरल ट्रेंड मॉडल पिछली मासिक माँग (नमूना डेटा) से अगले तीन महीनों का अनुमान देता है। स्टॉक से ऊपर की माँग वाले महीने चिह्नित होते हैं।","साधे ट्रेंड मॉडेल मागील मासिक मागणी (नमुना डेटा) वरून पुढील तीन महिन्यांचा अंदाज देते. साठ्यापेक्षा जास्त मागणीचे महिने चिन्हांकित होतात."],
+r2:["दाताओं को जोड़े रखें","दात्यांना जोडून ठेवा"],
+rl:["बैज प्रगति को सम्मानित करते हैं। रिटेंशन मॉडल अंतिम रक्तदान के बाद का समय देखकर सही समय पर याद दिलाता है।","बॅज प्रगतीचा सन्मान करतात. रिटेन्शन मॉडेल शेवटच्या रक्तदानानंतरचा काळ पाहून योग्य वेळी आठवण देते."],
+p2:["डिज़ाइन से ही गोपनीय","रचनेतूनच गोपनीय"],
+pl:["चिकित्सा जानकारी एन्क्रिप्टेड रहती है और केवल प्रमाणित स्वास्थ्य सेवा प्रदाताओं से साझा होती है।","वैद्यकीय माहिती एन्क्रिप्टेड राहते आणि फक्त प्रमाणित आरोग्यसेवा पुरवठादारांसोबत शेअर होते."],
+n1:["मैचिंग","जुळवणी"],n2:["सहायक","सहाय्यक"],n3:["पूर्वानुमान","अंदाज"],n4:["सम्मान","सन्मान"],n5:["गोपनीयता","गोपनीयता"],n6:["कैसे काम करता है","कसे काम करते"],n7:["सवाल","प्रश्न"],
+login:["लॉगिन","लॉगिन"],reg:["रजिस्टर करें","नोंदणी करा"],nm:["नाम","नाव"],em:["ईमेल","ईमेल"],pw:["पासवर्ड","पासवर्ड"],rl2:["मैं हूँ","मी आहे"],
+dn:["केवल डेमो: कोई असली खाता नहीं बनता।","फक्त डेमो: खरे खाते तयार होत नाही."],
+s1:["प्रति रक्तदान तक बचाई जा सकने वाली जानें","प्रत्येक रक्तदानातून वाचू शकणारे जीव (कमाल)"],s2:["पात्र आयु (वर्ष)","पात्र वय (वर्षे)"],s3:["न्यूनतम वज़न (किग्रा)","किमान वजन (किग्रा)"],s4:["दो रक्तदानों के बीच महीने","दोन रक्तदानांमधील महिने"],
+hw:["LifeLink कैसे काम करता है","LifeLink कसे काम करते"],hwl:["अनुरोध से रक्तदान तक चार चरणों में।","विनंतीपासून रक्तदानापर्यंत चार टप्प्यांत."],
+st1:["अनुरोध","विनंती"],st2:["AI मैच","AI जुळवणी"],st3:["पुष्टि","खात्री"],st4:["दान करें और ट्रैक करें","दान करा आणि मागोवा घ्या"],
+cp:["कौन किसे रक्त दे सकता है","कोण कोणाला रक्त देऊ शकतो"],cpl:["पंक्तियाँ मरीज़ का रक्त समूह हैं; ✓ संगत दाता समूह दर्शाता है।","ओळी रुग्णाचा रक्तगट आहेत; ✓ सुसंगत दात्याचा गट दर्शवतो."],
+bd:["देहदान: संकल्प कैसे करें","देहदान: संकल्प कसा करावा"],b1:["संकल्प पंजीकृत करें","संकल्प नोंदवा"],b2:["परिवार को बताएँ","कुटुंबाला सांगा"],b3:["मृत्यु के समय परिवार मेडिकल कॉलेज को सूचित करे","मृत्यूच्या वेळी कुटुंब वैद्यकीय महाविद्यालयाला कळवेल"],b4:["शरीर का उपयोग चिकित्सा शिक्षा में होता है","शरीराचा वापर वैद्यकीय शिक्षणासाठी होतो"],
+fq:["अक्सर पूछे जाने वाले सवाल","वारंवार विचारले जाणारे प्रश्न"],
+q1:["क्या रक्तदान सुरक्षित है?","रक्तदान सुरक्षित आहे का?"],a1:["हाँ। हर दाता के लिए नया स्टेराइल उपकरण इस्तेमाल होता है और लगभग 350 से 450 मिली रक्त लिया जाता है।","होय. प्रत्येक दात्यासाठी नवीन निर्जंतुक साधने वापरली जातात आणि सुमारे 350 ते 450 मिली रक्त घेतले जाते."],
+q2:["मेरा मेडिकल डेटा कौन देख सकता है?","माझा वैद्यकीय डेटा कोण पाहू शकतो?"],a2:["केवल आपके रक्तदान से जुड़े प्रमाणित स्वास्थ्य सेवा प्रदाता।","फक्त तुमच्या रक्तदानाशी संबंधित प्रमाणित आरोग्यसेवा पुरवठादार."],
+q3:["क्या AI तय करता है कि किसे रक्त मिलेगा?","रक्त कोणाला मिळेल हे AI ठरवते का?"],a3:["नहीं। AI केवल रैंक और सुझाव देता है। अंतिम निर्णय डॉक्टर लेते हैं।","नाही. AI फक्त क्रमवारी आणि सूचना देते. अंतिम निर्णय डॉक्टर घेतात."]};
+const MAP={h1:".hero h1",hl:".hero .lead",m3:"#match .card:first-child h3",need:"label[for=need]",grp:"label[for=grp]",urg:"label[for=urg]",find:"#find",r3:"#match .card:nth-child(2) h3",a2:"#assistant h2",al:"#assistant .lead",ask:"#ask",f2:"#forecast h2",fl:"#forecast .lead",r2:"#recognition h2",rl:"#recognition .lead",p2:"#privacy h2",pl:"#privacy .lead",
+n1:'nav a[href="#match"]',n2:'nav a[href="#assistant"]',n3:'nav a[href="#forecast"]',n4:'nav a[href="#recognition"]',n5:'nav a[href="#privacy"]',n6:'nav a[href="#how"]',n7:'nav a[href="#faq"]'};
+Object.entries(MAP).forEach(([k,q])=>{const e=document.querySelector(q);if(e)e.dataset.i=k});
+document.querySelectorAll("[data-i]").forEach(e=>e.dataset.o=e.innerHTML);
+let idx=0,user=null,mode="login";
+function showUser(){$("loginBtn").textContent=user.name+" · "+["Logout","लॉगआउट","लॉगआउट"][idx]}
+function setLang(l){idx=["en","hi","mr"].indexOf(l);document.documentElement.lang=l;
+ document.querySelectorAll("[data-i]").forEach(e=>{const t=T[e.dataset.i];e.innerHTML=idx&&t?t[idx-1]:e.dataset.o});if(user)showUser()}
+$("lang").onchange=e=>setLang(e.target.value);
+// ---- Login (demo, in memory) ----
+function setMode(m){mode=m;$("tl").classList.toggle("on",m==="login");$("tg").classList.toggle("on",m==="reg");$("nameRow").style.display=m==="reg"?"block":"none";$("go").dataset.i=m;$("go").innerHTML=idx&&T[m]?T[m][idx-1]:(m==="reg"?"Register":"Login");$("err").textContent=""}
+$("loginBtn").onclick=()=>{if(user){user=null;TOKEN=null;try{sessionStorage.removeItem("ll_token")}catch(e){}$("loginBtn").dataset.i="login";setLang($("lang").value);return}setMode("login");$("modal").classList.add("open");$("ue").focus()};
+$("tl").onclick=()=>setMode("login");$("tg").onclick=()=>setMode("reg");
+$("cx").onclick=()=>$("modal").classList.remove("open");
+$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("open")};
+document.onkeydown=e=>{if(e.key==="Escape")$("modal").classList.remove("open")};
+$("go").onclick=async()=>{const em=$("ue").value.trim(),pw=$("up").value,nm=$("un").value.trim();
+ if(!/^\S+@\S+\.\S+$/.test(em)||pw.length<6||(mode==="reg"&&!nm)){$("err").textContent=["Enter your name (if registering), a valid email and a password of 6+ characters.","नाम (रजिस्टर करते समय), सही ईमेल और 6+ अक्षरों का पासवर्ड डालें।","नाव (नोंदणी करताना), योग्य ईमेल आणि 6+ अक्षरांचा पासवर्ड टाका."][idx];return}
+ try{const j=await api("/auth/"+(mode==="reg"?"register":"login"),{method:"POST",body:{name:nm,email:em,password:pw,role:$("ur").value}});
+  TOKEN=j.token;try{sessionStorage.setItem("ll_token",TOKEN)}catch(e){}user=j.user}
+ catch(e){if(e.status){$("err").textContent=e.message;return}user={name:nm||em.split("@")[0],role:$("ur").value}}
+ $("modal").classList.remove("open");$("loginBtn").removeAttribute("data-i");showUser();
+ radd("bot",["Welcome, ","स्वागत है, ","स्वागत, "][idx]+user.name+" 👋")};
+// ---- LifeBot robot ----
+const RK=[[/tattoo|piercing|टैटू|गोंदण/,["Wait about 6 to 12 months after a tattoo. Please confirm with the blood bank.","टैटू के बाद लगभग 6 से 12 महीने रुकें। ब्लड बैंक से पुष्टि करें।","गोंदणानंतर सुमारे 6 ते 12 महिने थांबा. रक्तपेढीकडून खात्री करा."]],
+[/often|gap|again|कितनी बार|कितने|किती वेळा|अंतर/,["Men can donate every 3 months, women every 4 months.","पुरुष हर 3 महीने, महिलाएँ हर 4 महीने में रक्तदान कर सकती हैं।","पुरुष दर 3 महिन्यांनी, महिला दर 4 महिन्यांनी रक्तदान करू शकतात."]],
+[/body|pledge|organ|देहदान|शरीर/,["Register a pledge and tell your family. They inform the medical college at the time of death.","संकल्प पंजीकृत करें और परिवार को बताएँ। मृत्यु के समय परिवार मेडिकल कॉलेज को सूचित करेगा।","संकल्प नोंदवा आणि कुटुंबाला सांगा. मृत्यूच्या वेळी कुटुंब वैद्यकीय महाविद्यालयाला कळवेल."]],
+[/age|weight|eligib|उम्र|आयु|वजन|वज़न|वय|पात्र/,["Age 18 to 65, weight at least 45 kg, haemoglobin 12.5 g/dL or more.","आयु 18 से 65, वज़न कम से कम 45 किग्रा, हीमोग्लोबिन 12.5 या अधिक।","वय 18 ते 65, वजन किमान 45 किग्रा, हिमोग्लोबिन 12.5 किंवा जास्त."]]];
+const FB=["I can help with tattoos, donation gaps, eligibility and body pledges.","मैं टैटू, रक्तदान अंतराल, पात्रता और देहदान पर मदद कर सकता हूँ।","मी गोंदण, रक्तदान अंतर, पात्रता आणि देहदान याबाबत मदत करू शकतो."];
+const GR=["Hi! I'm LifeBot. Ask me a question.","नमस्ते! मैं LifeBot हूँ। कोई सवाल पूछें।","नमस्कार! मी LifeBot आहे. प्रश्न विचारा."];
+function radd(c,t){const d=document.createElement("div");d.className="msg "+c;d.textContent=t;$("rchat").appendChild(d);$("rchat").scrollTop=1e9}
+function rsay(){const q=$("rq").value.trim();if(!q)return;radd("me",q);const k=RK.find(x=>x[0].test(q.toLowerCase()));setTimeout(()=>{const t=(k?k[1]:FB)[idx];radd("bot",t);speak(t)},300);$("rq").value=""}
+$("rbtn").onclick=()=>{$("rpanel").classList.toggle("open");if(!$("rchat").children.length)radd("bot",GR[idx])};
+$("rask").onclick=rsay;$("rq").onkeydown=e=>{if(e.key==="Enter")rsay()};
+// ---- Stock monitor ----
+const ST={"O-":8,"O+":42,"A-":24,"A+":38,"B-":12,"B+":30,"AB-":6,"AB+":22};
+function drawStock(){$("stock8").innerHTML=Object.entries(ST).map(([g,u])=>`<div class="tile ${u<15?"lowt":""}"><b>${g}</b><span>${u} units</span><div class="bar"><i style="width:${Math.min(100,u*2)}%;background:${u<15?"var(--red)":"var(--teal)"}"></i></div><small>${u<15?"Low: alert donors":"Healthy"}</small></div>`).join("");
+ const low=Object.entries(ST).filter(e=>e[1]<15).map(e=>e[0]);$("skn").textContent=low.length?"AI alert: low stock of "+low.join(", "):"All groups healthy"}
+$("sim").onclick=async()=>{try{Object.assign(ST,(await api("/stock/simulate",{method:"POST"})).stock)}catch(e){for(const g in ST)ST[g]=Math.max(0,ST[g]-Math.floor(Math.random()*9)+Math.floor(Math.random()*5))}drawStock()};drawStock();
+api("/stock").then(j=>{Object.assign(ST,j.stock);drawStock()}).catch(()=>{});
+// ---- Emergency alert simulation ----
+$("sosb").onclick=async()=>{const g=$("grp").value,u=$("urg").value,f=$("feed");f.innerHTML="";let r;
+ try{r=(await api("/requests",{method:"POST",body:{group:g,urgency:u,text:$("need").value}})).alerted}catch(e){r=rank(g,u).slice(0,3)}
+ const log=t=>{const p=document.createElement("div");p.className="ev";p.innerHTML="<small>"+new Date().toLocaleTimeString()+"</small>"+t;f.appendChild(p)};
+ if(!r.length){log("No eligible donors found. Notifying nearby blood banks.");return}
+ log("🚨 "+tagTxt[u]+" request for <b>"+g+"</b> created. Alerting "+r.length+" donors.");
+ r.forEach((d,i)=>{setTimeout(()=>log("📲 Alert sent to <b>"+d.name+"</b> ("+d.km.toFixed(1)+" km away)"),800*(i+1));
+  setTimeout(()=>log(i===0?"✅ <b>"+d.name+"</b> accepted. ETA "+Math.round(d.km*3+5)+" min":i===1?"👀 <b>"+d.name+"</b> viewed the alert":"⏳ <b>"+d.name+"</b> is on standby"),3200+900*i)});
+ setTimeout(()=>log("🏥 Hospital notified. A certified provider will verify the donation."),6200)};
+// ---- Donor screening ----
+const SQ=["I am 18 to 65 years old","I weigh at least 45 kg","I feel healthy, with no fever or infection","I have had no tattoo or piercing in the last 6 months","My last blood donation was over 3 months ago"];
+$("scq").innerHTML=SQ.map((q,i)=>`<label class="ck"><input type="checkbox" class="sq" data-n="${i}">${q}</label>`).join("")+'<p id="scr" class="tag low" style="display:block">Tick the statements above.</p>';
+document.querySelectorAll(".sq").forEach(c=>c.onchange=()=>{const n=[...document.querySelectorAll(".sq")],miss=n.filter(x=>!x.checked).map(x=>SQ[x.dataset.n]),r=$("scr");
+ if(!miss.length){r.className="tag low";r.style.display="block";r.textContent="Likely eligible. Visit a centre for the final health check."}
+ else{r.className="tag mod";r.style.display="block";r.textContent="Not eligible yet: "+miss.length+" condition"+(miss.length>1?"s":"")+" not met. Please wait or consult a doctor."}});
+// ---- Theme toggle ----
+$("theme").onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=d?"light":"dark"};
+// ---- More translations ----
+Object.assign(T,{n8:["लाइव","लाइव्ह"],n9:["तकनीक","तंत्रज्ञान"],
+sk:["लाइव रक्त स्टॉक मॉनिटर","थेट रक्तसाठा मॉनिटर"],skl:["नमूना अस्पताल स्टॉक। किसी समूह का स्टॉक सुरक्षित स्तर से नीचे जाने पर LifeLink मिलते-जुलते दाताओं को सचेत करता है।","नमुना रुग्णालय साठा. एखाद्या गटाचा साठा सुरक्षित पातळीखाली गेल्यास LifeLink जुळणाऱ्या दात्यांना सतर्क करते."],
+sim:["एक दिन का सिमुलेशन","एका दिवसाचे सिम्युलेशन"],so:["आपातकालीन अलर्ट सिमुलेशन","आपत्कालीन अलर्ट सिम्युलेशन"],
+sol:["ऊपर मैचर के अनुरोध का उपयोग करता है। LifeLink शीर्ष तीन दाताओं को अलर्ट भेजता है और हर जवाब को रियल टाइम में ट्रैक करता है।","वरील मॅचरमधील विनंती वापरते. LifeLink पहिल्या तीन दात्यांना अलर्ट पाठवते आणि प्रत्येक प्रतिसाद रिअल टाइममध्ये ट्रॅक करते."],
+sosb:["आपातकालीन अलर्ट भेजें","आपत्कालीन अलर्ट पाठवा"],sc:["जाँचें कि क्या आप आज रक्तदान कर सकते हैं","आज रक्तदान करता येईल का ते तपासा"],
+scl:["जो बातें आपके लिए सही हैं उन पर टिक करें।","तुमच्यासाठी खरी असलेल्या विधानांवर टिक करा."],tc:["सिस्टम आर्किटेक्चर और टेक स्टैक","सिस्टम आर्किटेक्चर आणि टेक स्टॅक"]});
+// ---- Voice (Web Speech API) ----
+const LC=["en-IN","hi-IN","mr-IN"],SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function speak(t){if(!window.speechSynthesis||!$("spk").checked)return;const u=new SpeechSynthesisUtterance(t);u.lang=LC[idx];speechSynthesis.cancel();speechSynthesis.speak(u)}
+if(!SR)$("mic").style.display="none";else $("mic").onclick=()=>{try{const r=new SR();r.lang=LC[idx];r.onresult=e=>{$("rq").value=e.results[0][0].transcript;rsay()};r.onerror=()=>radd("bot","Voice input is not available here.");r.start()}catch(e){radd("bot","Voice input is not available here.")}};
+// ---- Donor card + QR ----
+$("dg").innerHTML=Object.keys(COMPAT).map(g=>`<option>${g}</option>`).join("");
+$("mk").onclick=()=>{const g=$("dg").value,id="LL-"+Math.floor(100000+Math.random()*900000),nm=user?user.name:"Guest donor",c=$("idc");
+ c.innerHTML=`<h3>${nm.replace(/</g,"")}</h3><p style="margin:4px 0 10px">Blood group <b style="color:var(--red)">${g}</b> · ID ${id}</p><div id="qr" style="display:inline-block;background:#fff;padding:10px;border-radius:8px"></div>`;
+ try{new QRCode($("qr"),{text:"LifeLink|"+id+"|"+g,width:130,height:130})}catch(e){$("qr").textContent="QR library could not load."}};
+// ---- ML: logistic regression trained in the browser ----
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const sg=z=>1/(1+Math.exp(-z));let W=[0,0,0],B0=0;
+const lg=x=>sg(W[0]*x[0]+W[1]*x[1]+W[2]*x[2]+B0);
+function gen(R,N){return Array.from({length:N},()=>{const n=R()*12,d=R()*365,r=R(),y=R()<sg(1.2-.25*n+.012*d-3*r)?1:0;return{x:[n/12,d/365,r],y}})}
+function train(seed){const R=rng(seed),tr=gen(R,400),te=gen(R,150);W=[0,0,0];B0=0;
+ for(let e=0;e<600;e++){const g=[0,0,0];let gb=0;tr.forEach(p=>{const er=lg(p.x)-p.y;for(let i=0;i<3;i++)g[i]+=er*p.x[i];gb+=er});for(let i=0;i<3;i++)W[i]-=g[i]/400*1.5;B0-=gb/400*1.5}
+ const acc=te.filter(p=>(lg(p.x)>.5?1:0)===p.y).length/te.length;
+ $("mlr").textContent=`Trained on 400 synthetic donors in your browser. Test accuracy: ${Math.round(acc*100)}%. Learned weights: donations ${W[0].toFixed(1)}, days since last ${W[1].toFixed(1)}, reminder replies ${W[2].toFixed(1)}.`;pred()}
+function pred(){$("v1").textContent=$("m1").value;$("v2").textContent=$("m2").value;$("v3").textContent=$("m3").value;
+ const p=lg([$("m1").value/12,$("m2").value/365,$("m3").value/100]),pc=Math.round(p*100),e=$("mlp");
+ e.className="tag "+(p>.6?"crit":p>.35?"mod":"low");e.textContent=`Drop-off risk ${pc}%: `+(p>.6?"high, send a personal nudge today":p>.35?"medium, remind before the next eligibility date":"low, keep the regular schedule")}
+["m1","m2","m3"].forEach(i=>$(i).oninput=pred);$("retrain").onclick=()=>train(Math.floor(Math.random()*1e6));train(7);
+// ---- Web Crypto: AES-GCM and hash-chained ledger ----
+const enc=new TextEncoder(),hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+const sha=async t=>hex(await crypto.subtle.digest("SHA-256",enc.encode(t)));
+async function dkey(p,salt){const k=await crypto.subtle.importKey("raw",enc.encode(p),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:100000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
+let PK=null;
+$("encb").onclick=async()=>{try{const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),k=await dkey($("pp").value,salt),ct=await crypto.subtle.encrypt({name:"AES-GCM",iv},k,enc.encode($("pt").value));PK={salt,iv,ct};$("ctx").textContent="Ciphertext: "+btoa(String.fromCharCode(...new Uint8Array(ct)))}catch(e){$("ctx").textContent="Encryption is not available in this browser."}};
+$("decb").onclick=async()=>{if(!PK){$("ctx").textContent="Encrypt a note first.";return}try{const k=await dkey($("pp").value,PK.salt),pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:PK.iv},k,PK.ct);$("ctx").textContent="Decrypted: "+new TextDecoder().decode(pt)}catch(e){$("ctx").textContent="Wrong passphrase: decryption failed."}};
+const CH=[];
+function drawCH(){$("chain").innerHTML=CH.length?CH.map((b,i)=>`<div class="ev"><small>#${i+1}</small>${b.d.replace(/</g,"&lt;")}<br><small>hash ${b.h.slice(0,18)}…</small></div>`).join(""):'<p class="lead">No records yet.</p>'}
+$("addb").onclick=async()=>{const prev=CH.length?CH[CH.length-1].h:"0",ts=new Date().toISOString(),d=$("bd").value||"Donor A, B+, 450 ml";CH.push({d,prev,ts,h:await sha(prev+d+ts)});$("vr").textContent="";drawCH()};
+$("vfy").onclick=async()=>{let prev="0";for(let i=0;i<CH.length;i++){const b=CH[i];if(b.prev!==prev||await sha(b.prev+b.d+b.ts)!==b.h){$("vr").textContent="❌ Chain broken at record #"+(i+1);return}prev=b.h}$("vr").textContent=CH.length?"✅ All "+CH.length+" records verified":"Add a record first."};
+$("tmp").onclick=()=>{if(CH.length){CH[0].d="Tampered record";drawCH();$("vr").textContent="Record #1 edited. Press Verify."}};
+Object.assign(T,{dc:["डिजिटल दाता कार्ड","डिजिटल दाता कार्ड"],ml:["AI लैब: दाता छोड़ने का जोखिम","AI लॅब: दाता गळतीचा धोका"],sy:["सुरक्षा लैब","सुरक्षा लॅब"]});
+// ---- Guided demo ----
+const TS=[["#match","1. Describe an emergency. AI triage reads the text and sets urgency, then the scoring model ranks compatible, eligible donors.",()=>{$("need").value="Accident patient in ICU, heavy bleeding, needs blood now";$("need").dispatchEvent(new Event("input"));$("find").click()}],
+["#sos","2. One tap alerts the top three donors and tracks each response live.",()=>$("sosb").click()],
+["#stock","3. The stock monitor flags blood groups running low so donors can be alerted.",()=>$("sim").click()],
+["#forecast","4. A trend model forecasts demand for the next three months and warns before a shortage."],
+["#ml","5. A model trained in your browser predicts which donors are likely to drop off."],
+["#seclab","6. Medical notes are encrypted and donation records are tamper-evident."],
+["#robot","7. LifeBot answers in English, Hindi and Marathi, by text or voice.",()=>{$("rpanel").classList.add("open");if(!$("rchat").children.length)radd("bot",GR[idx])}]];
+let ti=-1,tel=null;
+function tstep(i){if(tel)tel.classList.remove("hl");$("rpanel").classList.remove("open");
+ if(i<0||i>=TS.length){ti=-1;$("tour").style.display="none";return}
+ ti=i;const[t,txt,a]=TS[i];tel=document.querySelector(t);$("tour").style.display="block";$("tt").textContent=txt;$("tn").textContent=i===TS.length-1?"Finish":"Next";
+ if(t!=="#robot")tel.classList.add("hl");tel.scrollIntoView({behavior:"smooth",block:"start"});if(a)a()}
+$("tstart").onclick=()=>tstep(0);$("tn").onclick=()=>tstep(ti+1);$("tb").onclick=()=>tstep(Math.max(0,ti-1));$("tx").onclick=()=>tstep(-1);
+addEventListener("scroll",()=>{const h=document.documentElement;$("prog").style.width=(h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)*100)+"%"});
+Object.assign(T,{pr:["हमारी समस्या और समाधान","आमची समस्या आणि उपाय"],tstart:["गाइडेड डेमो शुरू करें","मार्गदर्शित डेमो सुरू करा"]});
+Object.assign(T,{ft:["पाँच सुविधाएँ, एक प्लेटफ़ॉर्म","पाच वैशिष्ट्ये, एक प्लॅटफॉर्म"]});
+</script>
+</body>
+</html>
